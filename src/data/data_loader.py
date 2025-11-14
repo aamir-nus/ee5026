@@ -186,21 +186,24 @@ def prepare_dataset(cmupie_dir: str, selfie_dir: str) -> Tuple[np.ndarray, np.nd
     Returns:
         Tuple of (x_train, x_test, y_train, y_test, valid_subjects, train_selfie_indices, test_selfie_indices)
     """
-    # select random subjects
+    #select random subjects
     selected_subjects = select_random_subjects()
+    print(f"Selected subjects: {selected_subjects}")
 
-    # load and split the dataset - PIE and selfies
+    #load and split the dataset - PIE and selfies
     images, labels, valid_subjects = load_cmupie_dataset(cmupie_dir, selected_subjects)
     x_train_cmupie, x_test_cmupie, y_train_cmupie, y_test_cmupie = split_dataset(images, labels)
     x_train_selfie, x_test_selfie, y_train_selfie, y_test_selfie = load_selfie_images(selfie_dir)
 
-    # combine data - vertical stacking for images, horizontal for labels
+    print(f"Selected {len(x_train_selfie)} subjects from the selfie dataset for training.")
+
+    #combine data - vertical stacking for images, horizontal for labels
     x_train = np.vstack([x_train_cmupie, x_train_selfie])
     x_test = np.vstack([x_test_cmupie, x_test_selfie])
     y_train = np.hstack([y_train_cmupie, y_train_selfie])
     y_test = np.hstack([y_test_cmupie, y_test_selfie])
 
-    # keep track of selfie indices for highlighting
+    #keep track of selfie indices for highlighting
     train_selfie_indices = np.arange(len(x_train_cmupie), len(x_train))
     test_selfie_indices = np.arange(len(x_test_cmupie), len(x_test))
 
