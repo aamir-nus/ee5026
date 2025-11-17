@@ -62,7 +62,7 @@ def compute_lda(X: np.ndarray, y: np.ndarray, p: int):
         lda_vectors = eigenvectors[:, idx[:p]]
         transformed_data = X @ lda_vectors
 
-    # fallback to PCA if S_w is singular
+    #fallback to PCA if S_w is singular
     except np.linalg.LinAlgError:
         print("Warning: S_w matrix is singular, falling back to PCA-like sol ")
         _, _, Vt = np.linalg.svd(S_b)

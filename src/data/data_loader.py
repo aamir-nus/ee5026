@@ -123,7 +123,7 @@ def load_selfie_images(selfie_dir: str,
     Returns:
         Tuple of (train_images, test_images, train_labels, test_labels)
     """
-    SELFIE_LABEL = 25  # selfie class label
+    SELFIE_LABEL = 400  # selfie class label
     selfie_images = []
     valid_extensions = {'.png', '.jpg', '.jpeg', '.bmp', '.gif'}
 
